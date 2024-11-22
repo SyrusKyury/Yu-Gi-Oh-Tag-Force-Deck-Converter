@@ -1,0 +1,129 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    color: #fff;
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://assets.altarofgaming.com/wp-content/uploads/2023/04/yu-gi-oh-gx-tag-force-wallpaper-background-altar-of-gaming.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: brightness(0.5); /* Dim the background */
+    z-index: -1;
+    overflow: hidden;
+}
+.container {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+.trasparent-container {
+    padding: 20px 40px;
+    text-align: center;
+    font-size: 0.8em;
+}
+.trasparent-container a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.drop-zone {
+    border: 2px dashed #fff;
+    border-radius: 10px;
+    padding: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    color: #fff;
+}
+.drop-zone:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+.file-info {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+.custom_h2 {
+    color: #ff5722;
+    font-size: 1.2em;
+}
+.convert-btn {
+    display: none;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background: #ff5722;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.convert-btn:hover {
+    background: #e64a19;
+}
+input[type="file"] {
+    display: none;
+}
+.menu-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Black vertical strip */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+}
+.menu-container code {
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.612);
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+.menu-container h2 {
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+.dropdown {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+.download-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background: #ff5722;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s ease;
+    width: 85%;
+}
+.download-btn:hover {
+    background: #e64a19;
+}

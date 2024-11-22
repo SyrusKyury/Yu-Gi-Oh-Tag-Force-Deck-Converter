@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu-Gi-Oh! Tag Force Deck Converter</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="menu-container">
+        <h2>Select Version</h2>
+        <select id="game-selector" class="dropdown">
+            <option value="tagforce1">Yu-Gi-Oh! Tag Force</option>
+            <option value="tagforce2" disabled>Yu-Gi-Oh! Tag Force 2</option>
+            <option value="tagforce3" disabled>Yu-Gi-Oh! Tag Force 3</option>
+            <option value="tagforce4" disabled>Yu-Gi-Oh! Tag Force 4</option>
+            <option value="tagforce5" disabled>Yu-Gi-Oh! Tag Force 5</option>
+            <option value="tagforce6" disabled>Yu-Gi-Oh! Tag Force 6</option>
+            <option value="arcv" disabled>Yu-Gi-Oh! ARC-V Tag Force Special</option>
+        </select>
+        <a href="#" id="download-link" class="download-btn" download>Download lflist</a>
+        <div class="trasparent-container">
+            <div class="custom_h2"><b>Getting started</b></div>
+            <p>Drag & Drop your .ydk or .ydc file in the box below, or click to upload it. Then click on the button to download the converted file.</p>
+            <div class="custom_h2"><b>How to use the converted file</b></div>
+            <p>Copy the content of the downloaded file and paste it in the <code>ProjectIgnis/deck</code> directory</p>
+            <div class="custom_h2"><b>How to see only the available cards</b></div>
+            <p>Click on the "Download lflist" button to download the lflist file for your game. Then, copy the content of the downloaded file and paste it in the <code>ProjectIgnis/lflist</code> directory</p>
+            <div class="custom_h2"><b>Notes</b></div>
+            <p>Each .ydc file has an 8-byte header stored in the filename when converted to a .ydk file. Please don't rename the file to ensure it can be converted back. For questions or suggestions, contact me on GitHub or Discord.</p>
+            <br>
+            <p><a href="https://github.com/syruskyury">@serpente_destro (SyrusKyury)</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Yu-Gi-Oh! Tag Force Deck Converter</h1>
+        <div class="drop-zone" id="drop-zone" onclick="triggerFileInput()">
+            Drag & Drop your .ydk or .ydc file here, or click to upload
+        </div>
+        <input type="file" id="file-input" accept=".ydk,.ydc">
+        <div class="file-info" id="file-info"></div>
+        <button class="convert-btn" id="convert-btn">Convert</button>
+    </div>
+
+    <script type="module" src="js/gui.js"></script>
+    <script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileInfo = document.getElementById('file-info');
+    const convertBtn = document.getElementById('convert-btn');
+    const downloadLink = document.getElementById('download-link');
+    const gameSelector = document.getElementById('game-selector');
+
+    function triggerFileInput() {
+        fileInput.click();
+    }
+
+    // Disabilita lo scroll della pagina
+    document.body.style.overflow = 'hidden';
+
+    // Disabilita lo scroll anche con la rotellina del mouse
+    window.addEventListener('wheel', function(event) {
+        event.preventDefault();
+    }, { passive: false });
+    </script>
+    
+</body>
+</html>
