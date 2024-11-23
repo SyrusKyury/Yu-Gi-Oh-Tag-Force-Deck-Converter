@@ -1,7 +1,7 @@
 let cards = {};
 
 function loadJSON(filename) {
-    fetch(`/json/${filename}.json`)
+    fetch(`json/${filename}.json`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("File not found");
