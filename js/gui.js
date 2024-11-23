@@ -69,10 +69,12 @@ function ydk2ydc(file) {
 
 
         let header = 0
+        let result_name = file.name
         //Count how many - are in the file name
-        if ((file.name.match(/-/g) || []).length == 7) {
+        if ((file.name.match(/-/g) || []).length == 8) {
             header = file.name.replace('.ydk', '').split('-');
-            header = header.map(x => parseInt(x));
+            result_name = header[0]
+            header = header.slice(1).map(x => parseInt(x));
         }
 
         
@@ -115,7 +117,7 @@ function ydk2ydc(file) {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = file.name.replace('.ydk', '.ydc');
+        a.download = result_name + `.ydc`
         a.click();
     };
     reader.readAsText(file);
@@ -149,7 +151,7 @@ function ydc2ydk(file) {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${header.join('-')}.ydk`;
+        a.download = file.name.replace('.ydc', '') + `-` + `${header.join('-')}.ydk`;
         a.click();
     };
     reader.readAsArrayBuffer(file);
