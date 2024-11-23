@@ -70,10 +70,10 @@ function ydk_parse(data) {
             deck = main_deck;
         } else if (line === "#extra") {
             deck = extra_deck;
-        } else if (line === "#side") {
+        } else if (line === "!side") {
             deck = side_deck;
         }
-        else {
+        else if (!isNaN(line)){
             deck.push(password2id(line));
         }
     }

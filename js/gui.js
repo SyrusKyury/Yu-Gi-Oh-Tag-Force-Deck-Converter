@@ -139,7 +139,7 @@ function ydc2ydk(file) {
         for (let card of extra_deck) {
             buffer += `${id2password(card)}\n`;
         }
-        buffer += `#side\n`;
+        buffer += `!side\n`;
         for (let card of side_deck) {
             buffer += `${id2password(card)}\n`;
         }
