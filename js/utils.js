@@ -73,7 +73,7 @@ function ydk_parse(data) {
         } else if (line === "!side") {
             deck = side_deck;
         }
-        else if (!isNaN(line)){
+        else if (line && !isNaN(line)){
             deck.push(password2id(line));
         }
     }

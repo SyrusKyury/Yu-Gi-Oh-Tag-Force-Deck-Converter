@@ -66,13 +66,16 @@ function ydk2ydc(file) {
     reader.onload = (event) => {
         const data = event.target.result;
         const {main_deck, extra_deck, side_deck } = ydk_parse(data);
+        console.log(main_deck)
+        console.log(extra_deck)
+        console.log(side_deck)
 
 
         let header = 0
-        let result_name = file.name
+        let result_name = file.name.replace('.ydk', '')
         //Count how many - are in the file name
-        if ((file.name.match(/-/g) || []).length == 8) {
-            header = file.name.replace('.ydk', '').split('-');
+        if ((file.name.match(/~/g) || []).length == 8) {
+            header = result_name.split('~');
             result_name = header[0]
             header = header.slice(1).map(x => parseInt(x));
         }
@@ -82,7 +85,7 @@ function ydk2ydc(file) {
         const buffer = new ArrayBuffer(8 + 2 + main_deck.length * 2 + 2 + extra_deck.length * 2 + 2 + side_deck.length * 2);
         const view = new DataView(buffer);
 
-        
+        console.log("Writing:", header)
         for (let i = 0; i < 8; i++) {
             view.setUint8(i, header[i]);
         }
@@ -151,7 +154,7 @@ function ydc2ydk(file) {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = file.name.replace('.ydc', '') + `-` + `${header.join('-')}.ydk`;
+        a.download = file.name.replace('.ydc', '') + `~` + `${header.join('~')}.ydk`;
         a.click();
     };
     reader.readAsArrayBuffer(file);
