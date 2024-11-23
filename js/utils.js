@@ -1,7 +1,7 @@
-export let cards = {};
+let cards = {};
 
-export function loadJSON(filename) {
-    fetch(`/json/${filename}.json`)
+function loadJSON(filename) {
+    fetch(`data/${filename}.json`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("File not found");
@@ -16,7 +16,7 @@ export function loadJSON(filename) {
         });
 }
 
-export function ydc_parse(data) {
+function ydc_parse(data) {
     let header = data.slice(0, 8);
     let body = data.slice(8);
 
@@ -57,7 +57,7 @@ export function ydc_parse(data) {
 }
 
 
-export function ydk_parse(data) {
+function ydk_parse(data) {
     let lines = data.split("\n");
     let main_deck = [];
     let extra_deck = [];
@@ -82,12 +82,12 @@ export function ydk_parse(data) {
 }
 
 
-export function id2password(id) {
+function id2password(id) {
     return cards[id.toString()] || null;
 }
 
 
-export function password2id(password) {
+function password2id(password) {
     for (let key in cards) {
         if (cards[key] === password) {
             return parseInt(key);
