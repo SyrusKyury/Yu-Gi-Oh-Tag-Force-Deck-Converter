@@ -1,4 +1,4 @@
-import { ydc_parse, ydk_parse, id2password, password2id, cards, loadJSON } from './utils.js';
+import { ydc_parse, ydk_parse, id2password, password2id, cards, loadJSON } from 'js/utils.js';
 
 let currentFile = null;
 
