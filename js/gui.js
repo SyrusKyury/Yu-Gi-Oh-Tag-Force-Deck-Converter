@@ -1,4 +1,4 @@
-let currentFile = null;
+let currentFiles = []; // Array to store multiple files
 
 // Trigger file input on click
 function triggerFileInput() {
@@ -7,11 +7,11 @@ function triggerFileInput() {
 
 // Handle file selection from input
 fileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    handleFile(file);
+    const files = Array.from(event.target.files); // Get all selected files
+    handleFiles(files);
 });
 
-// Handle drag-and-drop
+// Handle drag-and-drop for multiple files
 dropZone.addEventListener('dragover', (event) => {
     event.preventDefault();
     dropZone.style.background = 'rgba(255, 255, 255, 0.2)';
@@ -24,138 +24,154 @@ dropZone.addEventListener('dragleave', () => {
 dropZone.addEventListener('drop', (event) => {
     event.preventDefault();
     dropZone.style.background = 'rgba(255, 255, 255, 0.1)';
-    const file = event.dataTransfer.files[0];
-    handleFile(file);
+    const files = Array.from(event.dataTransfer.files); // Get all dropped files
+    handleFiles(files);
 });
 
-// Handle file logic
-function handleFile(file) {
-    if (!file) {
-        fileInfo.textContent = 'No file detected. Please try again.';
+// Handle multiple files
+function handleFiles(files) {
+    if (!files || files.length === 0) {
+        fileInfo.innerHTML = 'No files detected. Please try again.';
         return;
     }
 
-    const fileExtension = file.name.split('.').pop().toLowerCase();
-    if (fileExtension === 'ydk' || fileExtension === 'ydc') {
-        currentFile = file;
-        fileInfo.textContent = `Loaded file: ${file.name}`;
+    currentFiles = []; // Reset the current files array
+    const validFiles = [];
+    const invalidFiles = [];
+
+    files.forEach((file) => {
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        if (fileExtension === 'ydk' || fileExtension === 'ydc') {
+            validFiles.push(file);
+        } else {
+            invalidFiles.push(file.name);
+        }
+    });
+
+    fileInfo.innerHTML = ''; // Clear the file info container
+    fileInfo.hidden = false;
+    if (validFiles.length > 0) {
+        currentFiles = validFiles;
+
+        // Populate the scrollable container with valid file names
+        const fileList = validFiles.map(f => `${f.name}`).join('<br>');
+        fileInfo.innerHTML = `<center>${fileList}</center>`;
         convertBtn.style.display = 'inline-block';
-        convertBtn.textContent = `Convert to .${fileExtension === 'ydk' ? 'ydc' : 'ydk'}`;
+        convertBtn.textContent = `Convert ${validFiles.length} Files`;
+        convertBtn.onclick = () => handleBatchConversion(currentFiles);
     } else {
-        fileInfo.textContent = 'Invalid file type. Please upload a .ydk or .ydc file.';
+        fileInfo.innerHTML = 'No valid files detected. Please upload .ydk or .ydc files.';
         convertBtn.style.display = 'none';
+    }
+
+    if (invalidFiles.length > 0) {
+        console.warn('Invalid files:', invalidFiles);
     }
 }
 
-// Handle conversion
-convertBtn.addEventListener('click', () => {
-    if (!currentFile) return;
 
-    const fileExtension = currentFile.name.split('.').pop().toLowerCase();
-    if (fileExtension === 'ydk') {
-        ydk2ydc(currentFile);
-    } else if (fileExtension === 'ydc') {
-        ydc2ydk(currentFile);
-    }
-});
+// Handle batch conversion
+function handleBatchConversion(files) {
+    let successCount = 0;
+    let failureCount = 0;
 
-// Placeholder functions for conversion
+    files.forEach((file) => {
+        try {
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            if (fileExtension === 'ydk') {
+                ydk2ydc(file);
+            } else if (fileExtension === 'ydc') {
+                ydc2ydk(file);
+            }
+            successCount++;
+        } catch (error) {
+            console.error(`Failed to convert ${file.name}:`, error);
+            failureCount++;
+        }
+    });
+
+    fileInfo.innerHTML = `Batch conversion completed!<br>
+                          Successfully converted: ${successCount}<br>
+                          Failed: ${failureCount}`;
+}
+
+// Convert .ydk to .ydc
 function ydk2ydc(file) {
-
     const reader = new FileReader();
     reader.onload = (event) => {
         const data = event.target.result;
-        const {main_deck, extra_deck, side_deck } = ydk_parse(data);
-        console.log(main_deck)
-        console.log(extra_deck)
-        console.log(side_deck)
+        const { main_deck, extra_deck, side_deck } = ydk_parse(data);
 
-
-        let header = 0
-        let result_name = file.name.replace('.ydk', '')
-        //Count how many - are in the file name
+        let header = 0;
+        let result_name = file.name.replace('.ydk', '');
         if ((file.name.match(/~/g) || []).length == 8) {
             header = result_name.split('~');
-            result_name = header[0]
+            result_name = header[0];
             header = header.slice(1).map(x => parseInt(x));
         }
 
-        
-        // Create an empty buffer
         const buffer = new ArrayBuffer(8 + 2 + main_deck.length * 2 + 2 + extra_deck.length * 2 + 2 + side_deck.length * 2);
         const view = new DataView(buffer);
 
-        console.log("Writing:", header)
         for (let i = 0; i < 8; i++) {
             view.setUint8(i, header[i]);
         }
 
-
-        // Write main deck
         view.setUint16(8, main_deck.length, true);
         let offset = 10;
-        for (let card of main_deck) {
+        main_deck.forEach(card => {
             view.setUint16(offset, card, true);
             offset += 2;
-        }
+        });
 
-        // Write extra deck
         view.setUint16(offset, extra_deck.length, true);
         offset += 2;
-        for (let card of extra_deck) {
+        extra_deck.forEach(card => {
             view.setUint16(offset, card, true);
             offset += 2;
-        }
+        });
 
-        // Write side deck
         view.setUint16(offset, side_deck.length, true);
         offset += 2;
-        for (let card of side_deck) {
+        side_deck.forEach(card => {
             view.setUint16(offset, card, true);
             offset += 2;
-        }
+        });
 
-        // Create a blob and download
         const blob = new Blob([new Uint8Array(buffer)], { type: 'application/octet-stream' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = result_name + `.ydc`
+        a.download = result_name + `.ydc`;
         a.click();
+
+        console.log(`${file.name} successfully converted to .ydc`);
     };
     reader.readAsText(file);
 }
 
-
+// Convert .ydc to .ydk
 function ydc2ydk(file) {
     const reader = new FileReader();
     reader.onload = (event) => {
         const data = new Uint8Array(event.target.result);
         const { header, main_deck, extra_deck, side_deck } = ydc_parse(data);
 
-        // Create a string buffer
         let buffer = `#main\n`;
-        for (let card of main_deck) {
-            buffer += `${id2password(card)}\n`;
-        }
+        main_deck.forEach(card => buffer += `${id2password(card)}\n`);
         buffer += `#extra\n`;
-        for (let card of extra_deck) {
-            buffer += `${id2password(card)}\n`;
-        }
+        extra_deck.forEach(card => buffer += `${id2password(card)}\n`);
         buffer += `!side\n`;
-        for (let card of side_deck) {
-            buffer += `${id2password(card)}\n`;
-        }
+        side_deck.forEach(card => buffer += `${id2password(card)}\n`);
 
-        buffer = buffer.slice(0, -1);
-
-        // Create a blob and download
         const blob = new Blob([buffer], { type: 'application/octet-stream' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = file.name.replace('.ydc', '') + `~` + `${header.join('~')}.ydk`;
         a.click();
+
+        console.log(`${file.name} successfully converted to .ydk`);
     };
     reader.readAsArrayBuffer(file);
 }

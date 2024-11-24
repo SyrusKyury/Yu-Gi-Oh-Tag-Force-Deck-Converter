@@ -11,7 +11,7 @@ body {
 }
 body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -23,12 +23,64 @@ body::before {
     overflow: hidden;
 }
 .container {
-    text-align: center;
+    position: relative;
     background: rgba(0, 0, 0, 0.7);
     padding: 20px 40px;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
+.dark-container {
+    position: relative;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    max-width: 60%;  /* Limits the maximum width */
+    margin: 0 auto;    /* Centers the container */
+    height: 100vh;      /* Sets a fixed height to allow scrolling */
+    overflow: auto;    /* Enables scrolling if content overflows */
+}
+
+/* Title styling */
+.dark-container h1 {
+    color: #ff5722;
+    font-size: 2em;
+    text-align: center;
+}
+
+/* Link styling */
+.dark-container a {
+    color: #ff5722;
+    text-decoration: none;
+}
+
+.dark-container a:hover {
+    text-decoration: underline;
+}
+
+/* Code styling */
+.dark-container code {
+    color: #ff5722;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Paragraph styling */
+.dark-container p {
+    line-height: 1.5;
+}
+
+/* Centered headings */
+.dark-container h2 {
+    text-align: center;
+}
+
+.dark-container h3 {
+    color: #ff5722;
+}
+
+
 .trasparent-container {
     padding: 20px 40px;
     text-align: center;
@@ -39,7 +91,6 @@ body::before {
     font-weight: bold;
     text-decoration: none;
 }
-
 .drop-zone {
     border: 2px dashed #fff;
     border-radius: 10px;
@@ -50,10 +101,6 @@ body::before {
 }
 .drop-zone:hover {
     background: rgba(255, 255, 255, 0.1);
-}
-.file-info {
-    margin-top: 20px;
-    font-size: 1.2em;
 }
 .custom_h2 {
     color: #ff5722;
@@ -78,17 +125,18 @@ input[type="file"] {
     display: none;
 }
 .menu-container {
-    position: absolute;
+    position: fixed; /* Changed to fixed to keep it in place even when scrolling */
     top: 0;
     right: 0;
     width: 20%;
-    height: 100%;
+    height: 100vh; /* Full viewport height */
     background: rgba(0, 0, 0, 0.8); /* Black vertical strip */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 10px;
     box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10; /* Ensure it's on top of other content */
 }
 .menu-container code {
     color: #000000;
@@ -126,4 +174,24 @@ input[type="file"] {
 }
 .download-btn:hover {
     background: #e64a19;
+}
+.scrollable-container {
+    max-height: 300px; /* Set a fixed height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.scrollable-container::-webkit-scrollbar {
+    width: 10px;
+}
+.scrollable-container::-webkit-scrollbar-thumb {
+    background: #ff5722;
+    border-radius: 5px;
+}
+.scrollable-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
 }

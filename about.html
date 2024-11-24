@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu-Gi-Oh! Tag Force Deck Converter</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="dark-container">
+        
+        <h1>Yu-Gi-Oh! Tag Force Deck Converter</h1>
+        <h2>What is this?</h2>
+        <p>
+            This website allows you to modify NPC decks in the Yu-Gi-Oh! Tag Force games. The NPC decks are stored in .ydc files, which are binary and difficult to edit manually. With this tool, you can convert .ydc files to .ydk files that are much easier to modify using <a href="https://projectignis.github.io/download.html">EDOPro</a>.
+        </p>
+
+        <h2>How to Use</h2>
+        <p>
+            To convert your .ydc file, simply drag and drop it into the designated box, or click to upload it. Afterward, click the button to download the converted file. The tool will automatically convert between .ydc and .ydk formats.
+        </p>
+        <p>
+            To view only the available cards for your game, click the "Download lflist" button. This will download the lflist file for your game. Copy the contents of this file and paste it into the <code>ProjectIgnis/lflist</code> directory for use in EDOPro.
+        </p>
+        <h2>FAQ</h2>
+
+        <h3>Where can I find the .ydc files?</h3>
+        <p>
+            The .ydc files are located within the <code>EBOOT.bin</code> file of your game's ISO. You can extract the <code>EBOOT.bin</code> file using a tool like <a href="https://www.romhacking.net/utilities/1218/">UMDGen</a>. 
+            The <code>EBOOT.bin</code> file is usually found in the <code>SYSDIR</code> folder of the ISO and is encrypted. To decrypt it, use a program like <a href="https://www.romhacking.net/utilities/1225/">decEboot</a>. 
+            Once decrypted, the <code>EBOOT.bin</code> file contains all the game's data, including the NPC decks. You can extract the .ydc data using a tool like <a href="https://github.com/matheuscardoso96/YGTool">YGTool</a>.
+        </p>
+
+        <h3>Why does my .ydk file have such a strange name?</h3>
+        <p>
+            The .ydc files have an 8-byte header. While it seems this header does not affect the game, <code>Tag Force Deck Converter</code> includes it in the filename when converting to .ydk to ensure a more accurate conversion if you convert the file back to .ydc later. 
+            If you convert a .ydk file back to .ydc without the header in the filename, the software will automatically set the header to <code>uint32 0x00000000</code>.
+        </p>
+
+        <h3>Why use EDOPro?</h3>
+        <p>
+            EDOPro supports the .ydk format and includes features for anime, manga, and video game cards, as well as custom whitelists. While online editors are available, their compatibility with this tool is not guaranteed.
+        </p>
+
+        <h3>Why is this a Web App?</h3>
+        <p>
+            I prefer not to download software from the internet, so I created this web tool to let you convert files without needing to install anything.
+        </p>
+
+        <h3>How can I contact you?</h3>
+        <p>
+            You can reach me on GitHub <a href="https://github.com/syruskyury">@serpente_destro (SyrusKyury)</a>
+        </p>
+        <h3>How can I support your work</h3>
+        <p>
+            You can support me by donating on PayPal <a href="https://www.paypal.com/donate/?hosted_button_id=ETV8BCE3C6LWU">here</a>
+        </p>
+    </div>
+
+    <script>
+    document.body.style.overflow = 'hidden';
+    </script>
+    
+</body>
+</html>

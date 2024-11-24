@@ -25,13 +25,9 @@
         <div class="trasparent-container">
             <div class="custom_h2"><b>Getting started</b></div>
             <p>Drag & Drop your .ydk or .ydc file in the box below, or click to upload it. Then click on the button to download the converted file.</p>
-            <div class="custom_h2"><b>How to use the converted file</b></div>
-            <p>Copy the content of the downloaded file and paste it in the <code>ProjectIgnis/deck</code> directory</p>
-            <div class="custom_h2"><b>How to see only the available cards</b></div>
-            <p>Click on the "Download lflist" button to download the lflist file for your game. Then, copy the content of the downloaded file and paste it in the <code>ProjectIgnis/lflist</code> directory</p>
-            <div class="custom_h2"><b>Notes</b></div>
-            <p>Each .ydc file has an 8-byte header stored in the filename when converted to a .ydk file. Please don't rename the file to ensure it can be converted back. For questions or suggestions, contact me on GitHub or Discord.</p>
-            <br>
+            <div class="custom_h2"><b>FAQ</b></div>
+            <p>Learn more about the tool and how to use it <a href="about.html">here</a></p>
+            <div class="custom_h2"><b>Author</b></div>
             <p><a href="https://github.com/syruskyury">@serpente_destro (SyrusKyury)</a></p>
         </div>
     </div>
@@ -39,10 +35,10 @@
     <div class="container">
         <h1>Yu-Gi-Oh! Tag Force Deck Converter</h1>
         <div class="drop-zone" id="drop-zone" onclick="triggerFileInput()">
-            Drag & Drop your .ydk or .ydc file here, or click to upload
+            Drag & Drop your .ydk or .ydc files here, or click to upload
         </div>
-        <input type="file" id="file-input" accept=".ydk,.ydc">
-        <div class="file-info" id="file-info"></div>
+        <input type="file" id="file-input" accept=".ydk,.ydc" multiple>
+        <div class="scrollable-container" id="file-info" hidden></div>
         <button class="convert-btn" id="convert-btn">Convert</button>
     </div>
 
@@ -58,13 +54,6 @@
         fileInput.click();
     }
 
-    // Disabilita lo scroll della pagina
-    document.body.style.overflow = 'hidden';
-
-    // Disabilita lo scroll anche con la rotellina del mouse
-    window.addEventListener('wheel', function(event) {
-        event.preventDefault();
-    }, { passive: false });
     </script>
     <script src="js/utils.js"></script>
     <script src="js/gui.js"></script>
