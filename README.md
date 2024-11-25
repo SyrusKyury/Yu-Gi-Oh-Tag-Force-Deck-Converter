@@ -1,4 +1,5 @@
 # Yu-Gi-Oh! Tag Force Deck Converter
+[Click here to access the Web App](https://syruskyury.github.io/Yu-Gi-Oh-Tag-Force-Deck-Converter/)
 
 ## What is this?
 
@@ -42,6 +43,13 @@ EDOPro supports the `.ydk` format and includes features for anime, manga, and vi
 ### Why is this a Web App?
 
 This tool was designed as a web app to eliminate the need for downloading software. It allows you to convert files directly in your browser.
+
+### Can I deploy the Web App by myself?
+
+Yes, you can! There are several ways you can deploy this Web App locally, you can use Python for example.
+1. Clone the repository throught `git clone https://github.com/SyrusKyury/Yu-Gi-Oh-Tag-Force-Deck-Converter`
+2. Navigate to the `Yu-Gi-Oh-Tag-Force-Deck-Converter` directory. Open a terminal (Linux shell or Windows PowerShell) and start a local server: `python -m http.server 5000`
+3. Enjoy the Web App at http://localhost:5000
 
 ### How can I support your work?
 
