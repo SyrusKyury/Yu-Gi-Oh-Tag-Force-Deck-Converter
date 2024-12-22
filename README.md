@@ -54,3 +54,6 @@ Yes, you can! There are several ways you can deploy this Web App locally, you ca
 ### How can I support your work?
 
 You can support me by donating on PayPal [here](https://www.paypal.com/donate/?hosted_button_id=ETV8BCE3C6LWU).
+
+### Special thanks
+- **Moki**: For making the web app compatible with Tag Force 3
