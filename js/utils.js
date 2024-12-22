@@ -23,9 +23,6 @@ function ydc_parse(data) {
     let main_deck_size = new DataView(body.buffer).getUint16(0, true);
     body = body.slice(2);
 
-    //Print size in hex
-    console.log(main_deck_size.toString(16));
-
     let main_deck = [];
     for (let i = 0; i < main_deck_size; i++) {
         let card_id = new DataView(body.buffer).getUint16(0, true);

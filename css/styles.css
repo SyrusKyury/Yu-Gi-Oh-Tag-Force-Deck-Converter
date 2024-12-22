@@ -160,6 +160,10 @@ input[type="file"] {
     color: #fff;
     cursor: pointer;
 }
+.dropdown option:enabled {
+    color: #000;
+    background-color: rgba(0, 0, 0, 0.05);
+}
 .download-btn {
     margin-top: 20px;
     padding: 10px 20px;
